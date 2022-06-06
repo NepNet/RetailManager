@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AtkSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\AtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CairoSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\CairoSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GdkSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\GdkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GioSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\GioSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GLibSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\GLibSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GtkSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\GtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PangoSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\lib\PangoSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="GUI\SaleWindow.glade" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="GUI\SaleWindow.glade">
+      <DependentUpon>SaleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
