@@ -28,7 +28,30 @@ namespace RetailManager.GUI
 
 		private void InitSearchTree()
 		{
+			var model = new ListStore(typeof(CartItem));
+			_searchTree.Model = model;
+
+			for (int i = 0; i < 5; i++)
+			{
+				model.AppendValues(new CartItem()
+				{
+					Name = $"Item {i}",
+					UnitPrice = i
+				});
+			}
 			
+			var nameCell = new CellRendererText();
+			var nameColumn = _searchTree.AppendColumn("Name", nameCell, CartNameCellFunc);
+			nameColumn.Resizable = true;
+			nameColumn.MinWidth = 100;
+			nameColumn.MaxWidth = 700;
+
+			_searchTree.RowActivated += (o, args) =>
+			{
+				_cartTree.Model.GetIter(out TreeIter iter, args.Path);
+				var item = (CartItem) _cartTree.Model.GetValue(iter, 0);
+				((ListStore) _cartTree.Model).AppendValues(item);
+			};
 		}
 		
 		private void InitCartTree()
