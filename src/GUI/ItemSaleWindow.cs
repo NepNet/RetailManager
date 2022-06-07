@@ -1,13 +1,12 @@
 using System;
 using GLib;
 using Gtk;
-using Key = Gdk.Key;
 
 namespace RetailManager.GUI
 {
-	[TypeName(nameof(SaleWindow))]
-	[Template(GUIConstants.RES + nameof(SaleWindow))]
-	public class SaleWindow : Window
+	[TypeName(nameof(ItemSaleWindow))]
+	[Template(GUIConstants.RES + nameof(ItemSaleWindow))]
+	public class ItemSaleWindow : Window
 	{
 		[Child] private SearchEntry _searchEntry;
 		[Child] private TreeView _searchTree;
@@ -24,7 +23,7 @@ namespace RetailManager.GUI
 		private CartView _cart;
 		private TreeModelFilter _searchFilterModel;
 
-		public SaleWindow() : base(WindowType.Toplevel)
+		public ItemSaleWindow() : base(WindowType.Toplevel)
 		{
 			InitSearchTree();
 			InitCartTree();

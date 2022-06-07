@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using GLib;
 using RetailManager.GUI;
 using Application = Gtk.Application;
@@ -20,7 +21,7 @@ namespace RetailManager
 
 		private static void OnAppStarted(object? sender, EventArgs e)
 		{
-			var window = new SaleWindow();
+			var window = new ItemSaleWindow();
 			_app.AddWindow(window);
 			
 			window.Show();

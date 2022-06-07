@@ -34,8 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="GUI\SaleWindow.glade">
-      <DependentUpon>SaleWindow.cs</DependentUpon>
+    <None Remove="GUI\ItemSaleWindow.glade" />
+    <EmbeddedResource Include="GUI\ItemSaleWindow.glade">
+      <DependentUpon>ItemSaleWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 
