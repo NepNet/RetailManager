@@ -99,8 +99,8 @@ namespace RetailManager.GUI
 		
 		private void UpdateTotal()
 		{
-			float vat = 0;
-			float total = 0;
+			decimal vat = 0;
+			decimal total = 0;
 
 			_model.Foreach(delegate(ITreeModel model, TreePath path, TreeIter iter)
 			{
@@ -112,7 +112,7 @@ namespace RetailManager.GUI
 				return false;
 			});
 			
-			float price = total - vat;
+			decimal price = total - vat;
 
 			const string currency = "$";
 			
@@ -124,7 +124,7 @@ namespace RetailManager.GUI
 		private void TotalPriceCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
 		{
 			var item = (CartItem)tree_model.GetValue(iter, 0);
-			cell.SetProperty("text", new Value(item.TotalPrice.ToString("0.000")));
+			cell.SetProperty("text", new Value(item.TotalPrice.ToString("0.00")));
 		}
 
 		private void DiscountCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
@@ -136,7 +136,7 @@ namespace RetailManager.GUI
 		private void UnitPriceCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
 		{
 			var item = (CartItem)tree_model.GetValue(iter, 0);
-			cell.SetProperty("text", new Value(item.UnitPrice.ToString("0.000")));
+			cell.SetProperty("text", new Value(item.UnitPrice.ToString("0.00")));
 		}
 
 		private void CartNameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
@@ -153,7 +153,7 @@ namespace RetailManager.GUI
 
 		private void DiscountCellOnEdited(object o, EditedArgs args)
 		{
-			if (!float.TryParse(args.NewText, out float value)) return;
+			if (!decimal.TryParse(args.NewText, out var value)) return;
 			
 			if (value >= 100) return;
 			
@@ -166,7 +166,7 @@ namespace RetailManager.GUI
 
 		private void QuantityCellOnEdited(object o, EditedArgs args)
 		{
-			if (!float.TryParse(args.NewText, out float value)) return;
+			if (!decimal.TryParse(args.NewText, out var value)) return;
 			
 			_model.GetIter(out var iter, new TreePath(args.Path));
 			if (value <= 0) 
