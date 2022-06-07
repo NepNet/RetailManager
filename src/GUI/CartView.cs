@@ -8,7 +8,6 @@ namespace RetailManager.GUI
 	public class CartView
 	{
 		private ListStore _model;
-		private List<CartItem> _items;
 
 		private Label _priceLabel;
 		private Label _vatLabel;
@@ -71,13 +70,11 @@ namespace RetailManager.GUI
 		public void Clear()
 		{
 			_model.Clear();
-			_items = new List<CartItem>();
 			UpdateTotal();
 		}
 
 		public void Add(CartItem item)
 		{
-			_items.Add(item);
 			_model.AppendValues(item);
 			UpdateTotal();
 		}
@@ -85,7 +82,6 @@ namespace RetailManager.GUI
 		private void Remove(ref TreeIter iter)
 		{
 			var item = (CartItem)_model.GetValue(iter, 0);
-			_items.Remove(item);
 			_model.Remove(ref iter);
 			UpdateTotal();
 		}
@@ -95,15 +91,17 @@ namespace RetailManager.GUI
 			float vat = 0;
 			float total = 0;
 
-			float price = 0;
-
-			foreach (var item in _items)
+			_model.Foreach(delegate(ITreeModel model, TreePath path, TreeIter iter)
 			{
+				var item = (CartItem)model.GetValue(iter, 0);
+				
 				total += item.TotalPrice;
 				vat += item.TotalVAT;
-			}
-
-			price = total - vat;
+				
+				return false;
+			});
+			
+			float price = total - vat;
 
 			const string currency = "$";
 			
