@@ -39,7 +39,11 @@ namespace RetailManager.GUI
 				treeView.Selection.Mode = SelectionMode.None;
 			}
 
-			var quantityCell = new CellRendererText {Editable = editable};
+			var quantityCell = new CellRendererText
+			{
+				Editable = editable,
+				Xalign = 1
+			};
 			quantityCell.Edited += QuantityCellOnEdited;
 			var quantityColumn = treeView.AppendColumn("Quantity", quantityCell, CartQuantityCellFunc);
 
@@ -49,19 +53,26 @@ namespace RetailManager.GUI
 			nameColumn.MinWidth = 100;
 			nameColumn.MaxWidth = 700;
 
-			var discountCell = new CellRendererText() {Editable = editable};
+			var discountCell = new CellRendererText
+			{
+				Editable = editable, 
+				Xalign = 1
+			};
 			discountCell.Edited += DiscountCellOnEdited;
-			discountCell.Xalign = 1;
-			TreeViewColumn discountColumn = treeView.AppendColumn("Discount", discountCell, DiscountCellFunc);
-			
-			var unitPriceCell = new CellRendererText();
-			unitPriceCell.Xalign = 1;
-			var pricePieceColumn = treeView.AppendColumn("Price", unitPriceCell, UnitPriceCellFunc);
-			pricePieceColumn.MinWidth = 100;
-			
-			var priceTotalCell = new CellRendererText();
-			priceTotalCell.Xalign = 1;
-			TreeViewColumn priceTotalColumn = treeView.AppendColumn("Total", priceTotalCell, TotalPriceCellFunc);
+			var discountColumn = treeView.AppendColumn("Discount", discountCell, DiscountCellFunc);
+
+			var unitPriceCell = new CellRendererText
+			{
+				Xalign = 1
+			};
+			var unitPriceColumn = treeView.AppendColumn("Price", unitPriceCell, UnitPriceCellFunc);
+			unitPriceColumn.MinWidth = 100;
+
+			var priceTotalCell = new CellRendererText
+			{
+				Xalign = 1
+			};
+			var priceTotalColumn = treeView.AppendColumn("Total", priceTotalCell, TotalPriceCellFunc);
 			priceTotalColumn.MinWidth = 100;
 			
 			treeView.AppendColumn("", new CellRendererText());
@@ -137,7 +148,7 @@ namespace RetailManager.GUI
 		private void CartQuantityCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
 		{
 			var item = (CartItem)tree_model.GetValue(iter, 0);
-			cell.SetProperty("text", new Value(item.Quantity));
+			cell.SetProperty("text", new Value(item.Quantity.ToString("0.000")));
 		}
 
 		private void DiscountCellOnEdited(object o, EditedArgs args)
@@ -155,7 +166,7 @@ namespace RetailManager.GUI
 
 		private void QuantityCellOnEdited(object o, EditedArgs args)
 		{
-			if (!int.TryParse(args.NewText, out int value)) return;
+			if (!float.TryParse(args.NewText, out float value)) return;
 			
 			_model.GetIter(out var iter, new TreePath(args.Path));
 			if (value <= 0) 

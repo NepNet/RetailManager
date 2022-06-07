@@ -3,7 +3,7 @@ namespace RetailManager
 	public class CartItem
 	{
 		public string Name { get; set; }
-		public int Quantity { get; set; }
+		public float Quantity { get; set; }
 		public float UnitPrice { get; set; }
 		public float Discount { get; set; }
 		public float DiscountedPrice => UnitPrice - UnitPrice * Discount;
