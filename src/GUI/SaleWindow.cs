@@ -1,7 +1,7 @@
 using System;
-using System.Globalization;
 using GLib;
 using Gtk;
+using Key = Gdk.Key;
 
 namespace RetailManager.GUI
 {
@@ -20,18 +20,59 @@ namespace RetailManager.GUI
 		[Child] private Label _vatLabel;
 		[Child] private Label _totalLabel;
 
+		private ListStore _searchListStore;
+		private CartView _cart;
+		private TreeModelFilter _searchFilterModel;
+
 		public SaleWindow() : base(WindowType.Toplevel)
 		{
 			InitSearchTree();
 			InitCartTree();
+
+			InitSearch();
+
+			_clearButton.Activated += ClearCart;
+			_clearButton.Clicked += ClearCart;
 		}
 
+		private void ClearCart(object? sender, EventArgs e)
+		{
+			_cart.Clear();
+		}
+
+		private void InitSearch()
+		{
+			 _searchFilterModel = new TreeModelFilter(_searchListStore, null);
+			
+			_searchEntry.Activated += (sender, args) =>
+			{
+				_searchFilterModel.Refilter();
+			};
+			_searchEntry.SearchChanged += (sender, args) =>
+			{
+				_searchFilterModel.Refilter();
+			};
+			
+			_searchFilterModel.VisibleFunc = (model, iter) =>
+			{
+				var item = (CartItem) model.GetValue(iter, 0);
+				if (item.Name.Contains(_searchEntry.Text, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return true;
+				}
+				return false;
+			};
+			
+			_searchTree.Model = _searchFilterModel;
+		}
+		
 		private void InitSearchTree()
 		{
 			var model = new ListStore(typeof(CartItem));
+			_searchListStore = model;
 			_searchTree.Model = model;
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 50; i++)
 			{
 				model.AppendValues(new CartItem()
 				{
@@ -41,85 +82,34 @@ namespace RetailManager.GUI
 			}
 			
 			var nameCell = new CellRendererText();
-			var nameColumn = _searchTree.AppendColumn("Name", nameCell, CartNameCellFunc);
+			var nameColumn = _searchTree.AppendColumn("Name", nameCell, NameCellFunc);
 			nameColumn.Resizable = true;
 			nameColumn.MinWidth = 100;
 			nameColumn.MaxWidth = 700;
 
 			_searchTree.RowActivated += (o, args) =>
 			{
-				_cartTree.Model.GetIter(out TreeIter iter, args.Path);
-				var item = (CartItem) _cartTree.Model.GetValue(iter, 0);
-				((ListStore) _cartTree.Model).AppendValues(item);
+				_searchFilterModel.GetIter(out var iter, args.Path);
+				var source = (CartItem) _searchFilterModel.GetValue(iter, 0);
+				var item = new CartItem()
+				{
+					Name = source.Name,
+					Quantity = 1,
+					UnitPrice = source.UnitPrice
+				};
+				_cart.Add(item);
 			};
 		}
 		
 		private void InitCartTree()
 		{
-			var model = new ListStore(typeof(CartItem));
-			_cartTree.Model = model;
-
-			for (int i = 0; i < 5; i++)
-			{
-				model.AppendValues(new CartItem()
-				{
-					Name = $"Item {i}",
-					UnitPrice = i
-				});
-			}
-			
-			var quantityCell = new CellRendererText {Editable = true};
-			quantityCell.Edited += QuantityCellOnEdited;
-			var quantityColumn = _cartTree.AppendColumn("Quantity", quantityCell, CartQuantityCellFunc);
-
-			var nameCell = new CellRendererText();
-			var nameColumn = _cartTree.AppendColumn("Name", nameCell, CartNameCellFunc);
-			nameColumn.Resizable = true;
-			nameColumn.MinWidth = 100;
-			nameColumn.MaxWidth = 700;
-/*
-			var discountCell = new CellRendererText() {Editable = true};
-			discountCell.Edited += (o, args) => { };
-			discountCell.Xalign = 1;
-			TreeViewColumn discountColumn = treeView.AppendColumn("Discount", discountCell);
-*/
-/*
-			var pricePieceCell = new CellRendererText();
-			pricePieceCell.Xalign = 1;
-			var pricePieceColumn = _cartTree.AppendColumn("Price", pricePieceCell, "text", CartColumns.UnitPrice);
-			pricePieceColumn.MinWidth = 100;
-			/*
-			var priceTotalCell = new CellRendererText();
-			priceTotalCell.Xalign = 1;
-			TreeViewColumn priceTotalColumn = treeView.AppendColumn("Total", priceTotalCell);
-			priceTotalColumn.MinWidth = 100;
-			*/
-			//treeView.AppendColumn("", new CellRendererText());
-
-			
-			
+			_cart = new CartView(_cartTree, _priceLabel, _vatLabel, _totalLabel, true);
 		}
-
-		private void CartNameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		
+		private void NameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
 		{
 			var item = (CartItem)tree_model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Name));
-		}
-
-		private void CartQuantityCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
-		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
-			cell.SetProperty("text", new Value(item.Quantity));
-		}
-
-		private void QuantityCellOnEdited(object o, EditedArgs args)
-		{
-			if (int.TryParse(args.NewText, out int value))
-			{
-				_cartTree.Model.GetIter(out TreeIter iter, new TreePath(args.Path));
-				var item = (CartItem) _cartTree.Model.GetValue(iter, 0);
-				item.Quantity = value;
-			}
 		}
 	}
 }

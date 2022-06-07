@@ -3,7 +3,6 @@
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/RetailManager.runtimeconfig.json
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/RetailManager.runtimeconfig.dev.json
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/RetailManager.dll
-/home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/ref/RetailManager.dll
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/RetailManager.pdb
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/AtkSharp.dll
 /home/nepnet/RiderProjects/RetailManager/src/bin/Debug/net5.0/CairoSharp.dll
@@ -22,3 +21,4 @@
 /home/nepnet/RiderProjects/RetailManager/src/obj/Debug/net5.0/ref/RetailManager.dll
 /home/nepnet/RiderProjects/RetailManager/src/obj/Debug/net5.0/RetailManager.pdb
 /home/nepnet/RiderProjects/RetailManager/src/obj/Debug/net5.0/RetailManager.genruntimeconfig.cache
+/home/nepnet/RiderProjects/RetailManager/src/obj/Debug/net5.0/refint/RetailManager.dll

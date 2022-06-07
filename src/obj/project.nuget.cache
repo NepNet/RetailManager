@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "3AVRpuG4s0OSYHCKfpFbgxCvHfycAk1zOJW79C+OEkNXAzGNTDa0b7VVrFkZCsGwh1nVnAGk7f5bi8kwOxynZA==",
+  "dgSpecHash": "tBz+EzvuTUexyJAJn6WncgSTk+KwhByFE5DNPF/dQUrJXQaB+U+ruMb9GFCq+Y65MWARzSe4/EDHZnSPA5RFVw==",
   "success": true,
   "projectFilePath": "/home/nepnet/RiderProjects/RetailManager/src/RetailManager.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/nepnet/.nuget/packages/microsoft.netcore.app.ref/5.0.0/microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "/home/nepnet/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "/home/nepnet/.nuget/packages/microsoft.netcore.app.host.linux-x64/5.0.17/microsoft.netcore.app.host.linux-x64.5.0.17.nupkg.sha512"
+  ],
   "logs": []
 }

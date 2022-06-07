@@ -5,11 +5,13 @@ namespace RetailManager
 		public string Name { get; set; }
 		public int Quantity { get; set; }
 		public float UnitPrice { get; set; }
+		public float Discount { get; set; }
+		public float DiscountedPrice => UnitPrice - UnitPrice * Discount;
 		public float VAT { get; set; } = 0.19f;
-		public float VATValue => UnitPrice * VAT;
+		public float VATValue => DiscountedPrice * VAT;
 		
-		public float TotalPrice => UnitPrice * Quantity;
+		public float TotalPrice => DiscountedPrice * Quantity;
 		public float TotalVAT => VATValue * Quantity;
-		public float TotalBase => (UnitPrice - VATValue) * Quantity;
+		public float TotalBase => (DiscountedPrice - VATValue) * Quantity;
 	}
 }
