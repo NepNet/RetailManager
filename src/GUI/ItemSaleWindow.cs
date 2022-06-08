@@ -32,6 +32,12 @@ namespace RetailManager.GUI
 
 			_clearButton.Activated += ClearCart;
 			_clearButton.Clicked += ClearCart;
+
+			_confirmButton.Clicked += (sender, args) =>
+			{
+				new ClientSelectionWindow().Show();
+				new SaleWindow().Show();
+			};
 		}
 
 		private void ClearCart(object? sender, EventArgs e)

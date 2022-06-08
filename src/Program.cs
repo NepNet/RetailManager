@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using GLib;
 using RetailManager.GUI;
 using Application = Gtk.Application;

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,16 +28,23 @@
       <HintPath>..\lib\PangoSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  
   <ItemGroup>
-    <None Remove="GUI\SaleWindow.glade" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="GUI\ItemSaleWindow.glade" />
+    <EmbeddedResource Include="GUI\ClientSelectionWindow.glade">
+      <DependentUpon>ClientSelectionWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SaleWindow.glade">
+      <DependentUpon>SaleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    
+    <EmbeddedResource Include="GUI\Template.glade">
+      <DependentUpon>Template.cs</DependentUpon>
+    </EmbeddedResource>
+    
     <EmbeddedResource Include="GUI\ItemSaleWindow.glade">
       <DependentUpon>ItemSaleWindow.cs</DependentUpon>
     </EmbeddedResource>
+    
   </ItemGroup>
 
 </Project>
