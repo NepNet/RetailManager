@@ -19,6 +19,13 @@ namespace RetailManager.GUI
 		[Child] private Label _vatLabel;
 		[Child] private Label _totalLabel;
 
+		[Child] private Box _searchArea;
+		[Child] private Box _paymentArea;
+		[Child] private Box _cartArea;
+		
+		
+		[Child] private Box _paymentMethodBox;
+		
 		private ListStore _searchListStore;
 		private CartView _cart;
 		private TreeModelFilter _searchFilterModel;
@@ -33,11 +40,35 @@ namespace RetailManager.GUI
 			_clearButton.Activated += ClearCart;
 			_clearButton.Clicked += ClearCart;
 
+			var selectingItems = true;
+			
 			_confirmButton.Clicked += (sender, args) =>
 			{
-				new ClientSelectionWindow().Show();
-				new SaleWindow().Show();
+				//new ClientSelectionWindow().Show();
+				//new SaleWindow().Show();
+				selectingItems = !selectingItems;
+
+				_searchArea.Visible = selectingItems;
+				_paymentArea.Visible = !selectingItems;
+				_cartTree.Sensitive = selectingItems;
+				_clearButton.Visible = selectingItems;
 			};
+			
+			string[] paymentMethods = new string[]
+			{
+				"Cash",
+				"Card",
+				"Payment Order",
+			};
+			
+			RadioButton radioButton = new RadioButton(paymentMethods[0]);
+			
+			foreach (var paymentMethod in paymentMethods)
+			{
+				RadioButton radio = new RadioButton(radioButton, paymentMethod);
+				_paymentMethodBox.Add(radio);
+				radio.Show();
+			}
 		}
 
 		private void ClearCart(object? sender, EventArgs e)
@@ -77,6 +108,7 @@ namespace RetailManager.GUI
 			_searchListStore = model;
 			_searchTree.Model = model;
 
+			
 			for (int i = 0; i < 50; i++)
 			{
 				model.AppendValues(new CartItem()
