@@ -1,1 +1,4 @@
-/src/bin/
+src/[Dd]ebug/
+src/[Rr]elease/
+src/[Bb]in/
+src/[Oo]bj/
