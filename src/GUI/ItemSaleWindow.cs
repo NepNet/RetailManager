@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using GLib;
 using Gtk;
 
@@ -23,9 +24,9 @@ namespace RetailManager.GUI
 		[Child] private Box _paymentArea;
 		[Child] private Box _cartArea;
 		
-		
 		[Child] private Box _paymentMethodBox;
-		
+		[Child] private Box _receiptTypeBox;
+
 		private ListStore _searchListStore;
 		private CartView _cart;
 		private TreeModelFilter _searchFilterModel;
@@ -34,7 +35,7 @@ namespace RetailManager.GUI
 		{
 			InitSearchTree();
 			InitCartTree();
-
+			
 			InitSearch();
 
 			_clearButton.Activated += ClearCart;
@@ -44,9 +45,8 @@ namespace RetailManager.GUI
 			
 			_confirmButton.Clicked += (sender, args) =>
 			{
-				//new ClientSelectionWindow().Show();
-				//new SaleWindow().Show();
 				selectingItems = !selectingItems;
+				//_confirmButton.Label = selectingItems ? "Ok" : "Edit";
 
 				_searchArea.Visible = selectingItems;
 				_paymentArea.Visible = !selectingItems;
@@ -54,23 +54,38 @@ namespace RetailManager.GUI
 				_clearButton.Visible = selectingItems;
 			};
 			
-			string[] paymentMethods = new string[]
+			SetupPaymentTypeArea();
+		}
+
+		private void SetupPaymentTypeArea()
+		{
+			static string[] GetEnumNames(Type enumType)
 			{
-				"Cash",
-				"Card",
-				"Payment Order",
-			};
+				var raw = Enum.GetNames(enumType);
+				for (int i = 0; i < raw.Length; i++)
+				{
+					raw[i] = raw[i].Replace('_', ' ');
+				}
+				return raw;
+			}
 			
-			RadioButton radioButton = new RadioButton(paymentMethods[0]);
-			
-			foreach (var paymentMethod in paymentMethods)
+			var paymentMethodNames = GetEnumNames(typeof(PaymentMethod));
+			foreach (var name in paymentMethodNames)
 			{
-				RadioButton radio = new RadioButton(radioButton, paymentMethod);
+				var radio = new RadioButton(name);
 				_paymentMethodBox.Add(radio);
 				radio.Show();
 			}
-		}
 
+			var receiptTypeNames = GetEnumNames(typeof(ReceiptType));
+			foreach (var name in receiptTypeNames)
+			{
+				var radio = new RadioButton(name);
+				_receiptTypeBox.Add(radio);
+				radio.Show();
+			}
+		}
+		
 		private void ClearCart(object? sender, EventArgs e)
 		{
 			_cart.Clear();
@@ -78,7 +93,7 @@ namespace RetailManager.GUI
 
 		private void InitSearch()
 		{
-			 _searchFilterModel = new TreeModelFilter(_searchListStore, null);
+			_searchFilterModel = new TreeModelFilter(_searchListStore, null);
 			
 			_searchEntry.Activated += (sender, args) =>
 			{
@@ -107,9 +122,8 @@ namespace RetailManager.GUI
 			var model = new ListStore(typeof(CartItem));
 			_searchListStore = model;
 			_searchTree.Model = model;
-
 			
-			for (int i = 0; i < 50; i++)
+			for (int i = 0; i < 5000; i++)
 			{
 				model.AppendValues(new CartItem()
 				{

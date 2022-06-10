@@ -20,7 +20,8 @@ namespace RetailManager
 
 		private static void OnAppStarted(object? sender, EventArgs e)
 		{
-			var window = new ItemSaleWindow();
+			//var window = new ItemSaleWindow();
+			var window = new ClientSelectionDialog();
 			_app.AddWindow(window);
 			
 			window.Show();

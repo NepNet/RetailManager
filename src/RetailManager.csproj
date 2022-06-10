@@ -30,12 +30,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="GUI\ClientSelectionWindow.glade">
-      <DependentUpon>ClientSelectionWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\SaleWindow.glade">
-      <DependentUpon>SaleWindow.cs</DependentUpon>
-    </EmbeddedResource>
     
     <EmbeddedResource Include="GUI\Template.glade">
       <DependentUpon>Template.cs</DependentUpon>
@@ -43,6 +37,12 @@
     
     <EmbeddedResource Include="GUI\ItemSaleWindow.glade">
       <DependentUpon>ItemSaleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    
+    <None Remove="GUI\ClientSelectionDialog.glade" />
+    
+    <EmbeddedResource Include="GUI\ClientSelectionDialog.glade">
+      <DependentUpon>ClientSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     
   </ItemGroup>

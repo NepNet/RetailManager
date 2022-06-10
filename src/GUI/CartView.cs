@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using GLib;
 using Gtk;
 
@@ -15,6 +13,11 @@ namespace RetailManager.GUI
 		
 		public CartView(TreeView treeView, Label price, Label vat, Label total, bool editable)
 		{
+			treeView.SizeAllocated += (o, args) =>
+			{
+				treeView.Vadjustment.Value = treeView.Vadjustment.Upper;
+			};
+			
 			_priceLabel = price;
 			_vatLabel = vat;
 			_totalLabel = total;
