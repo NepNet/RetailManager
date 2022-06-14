@@ -78,8 +78,10 @@ namespace RetailManager.GUI
 				
 				_paymentMethodBox.Add(radio);
 				radio.Show();
+				radio.Clicked += PaymentMethodChanged;
 			}
-
+			
+			
 			first = null;
 			var receiptTypeNames = GetEnumNames(typeof(ReceiptType));
 			foreach (var name in receiptTypeNames)
@@ -90,7 +92,12 @@ namespace RetailManager.GUI
 				radio.Show();
 			}
 		}
-		
+
+		private void PaymentMethodChanged(object? sender, EventArgs e)
+		{
+			Console.WriteLine(((RadioButton)sender).Label);
+		}
+
 		private void ClearCart(object? sender, EventArgs e)
 		{
 			_cart.Clear();
