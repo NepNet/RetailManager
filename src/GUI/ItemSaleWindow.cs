@@ -70,17 +70,22 @@ namespace RetailManager.GUI
 			}
 			
 			var paymentMethodNames = GetEnumNames(typeof(PaymentMethod));
+			RadioButton first = null;
 			foreach (var name in paymentMethodNames)
 			{
-				var radio = new RadioButton(name);
+				var radio = new RadioButton(first, name);
+				first ??= radio;
+				
 				_paymentMethodBox.Add(radio);
 				radio.Show();
 			}
 
+			first = null;
 			var receiptTypeNames = GetEnumNames(typeof(ReceiptType));
 			foreach (var name in receiptTypeNames)
 			{
-				var radio = new RadioButton(name);
+				var radio = new RadioButton(first, name);
+				first ??= radio;
 				_receiptTypeBox.Add(radio);
 				radio.Show();
 			}
