@@ -1,7 +1,7 @@
 using System;
-using System.Linq;
 using GLib;
 using Gtk;
+using RetailManager.Data;
 
 namespace RetailManager.GUI
 {
@@ -26,6 +26,7 @@ namespace RetailManager.GUI
 		
 		[Child] private Box _paymentMethodBox;
 		[Child] private Box _receiptTypeBox;
+		[Child] private Button _confirmSaleButton;
 
 		private ListStore _searchListStore;
 		private CartView _cart;
@@ -54,7 +55,32 @@ namespace RetailManager.GUI
 				_clearButton.Visible = selectingItems;
 			};
 			
+			_confirmSaleButton.Clicked+= OnSaleConfirm;
+			
 			SetupPaymentTypeArea();
+		}
+
+		private async void OnSaleConfirm(object? sender, EventArgs e)
+		{
+			Sensitive = false;
+			var popup = new Window(WindowType.Popup);
+			
+			popup.WindowPosition = WindowPosition.Center;
+			popup.WidthRequest = 200;
+			popup.HeightRequest = 70;
+			var box = new Box(Orientation.Horizontal, 6);
+			box.Halign = Align.Center;
+			box.Valign = Align.Center;
+			box.Add(new Spinner() {Active = true});
+			box.Add(new Label("Waiting for response..."));
+			popup.Add(box);
+			popup.ShowAll();
+			
+			var result = await PaymentHandler.Process(PaymentMethod.Cash, ReceiptType.Basic_receipt);
+			
+			popup.Dispose();
+			Sensitive = true;
+
 		}
 
 		private void SetupPaymentTypeArea()
@@ -95,7 +121,10 @@ namespace RetailManager.GUI
 
 		private void PaymentMethodChanged(object? sender, EventArgs e)
 		{
-			Console.WriteLine(((RadioButton)sender).Label);
+			if (!(sender is RadioButton radio)) return;
+			
+			if (radio.Active)
+				Console.WriteLine(radio.Label);
 		}
 
 		private void ClearCart(object? sender, EventArgs e)
@@ -118,7 +147,7 @@ namespace RetailManager.GUI
 			
 			_searchFilterModel.VisibleFunc = (model, iter) =>
 			{
-				var item = (CartItem) model.GetValue(iter, 0);
+				var item = (Item) model.GetValue(iter, 0);
 				if (item.Name.Contains(_searchEntry.Text, StringComparison.InvariantCultureIgnoreCase))
 				{
 					return true;
@@ -131,17 +160,14 @@ namespace RetailManager.GUI
 		
 		private void InitSearchTree()
 		{
-			var model = new ListStore(typeof(CartItem));
+			var model = new ListStore(typeof(Item));
 			_searchListStore = model;
 			_searchTree.Model = model;
 			
-			for (int i = 0; i < 5000; i++)
+			var data = new SqLiteDataAccess();
+			foreach (var item in data.GetAllItems())
 			{
-				model.AppendValues(new CartItem()
-				{
-					Name = $"Item {i}",
-					UnitPrice = i
-				});
+				model.AppendValues(item);
 			}
 			
 			var nameCell = new CellRendererText();
@@ -153,12 +179,10 @@ namespace RetailManager.GUI
 			_searchTree.RowActivated += (o, args) =>
 			{
 				_searchFilterModel.GetIter(out var iter, args.Path);
-				var source = (CartItem) _searchFilterModel.GetValue(iter, 0);
-				var item = new CartItem()
+				var source = (Item) _searchFilterModel.GetValue(iter, 0);
+				var item = new CartItem(source)
 				{
-					Name = source.Name,
 					Quantity = 1,
-					UnitPrice = source.UnitPrice
 				};
 				_cart.Add(item);
 			};
@@ -171,7 +195,7 @@ namespace RetailManager.GUI
 		
 		private void NameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (Item)tree_model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Name));
 		}
 	}

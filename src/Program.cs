@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using Cairo;
 using GLib;
 using Gtk;
 using RetailManager.GUI;
@@ -10,11 +12,15 @@ namespace RetailManager
 	{
 		private const string APPID = "com.nepnet.retailmanager";
 		private static Application _app;
-		public static bool _initialized;
+		private static bool _initialized;
+		private static GLibSynchronizationContext _synchronizationContext;
 
 		static void Main(string[] args)
 		{
 			_app = new Application(APPID, ApplicationFlags.None);
+			
+			_synchronizationContext = new GLibSynchronizationContext();
+			SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
 			
 			_app.Startup += AppOnStartup;
 			_app.Activated += OnAppStarted;

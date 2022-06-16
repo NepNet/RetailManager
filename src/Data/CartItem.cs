@@ -1,8 +1,17 @@
+using RetailManager.Data;
+
 namespace RetailManager
 {
 	public class CartItem
 	{
-		public string Name { get; set; }
+		public Item Item { get; }
+		public string Name => Item.Name;
+
+		public CartItem(Item item)
+		{
+			Item = item;
+			UnitPrice = item.UnitPrice;
+		}
 		public decimal Quantity { get; set; }
 		public decimal UnitPrice { get; set; }
 		public decimal Discount { get; set; }
