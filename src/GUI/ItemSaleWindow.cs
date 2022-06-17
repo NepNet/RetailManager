@@ -167,6 +167,11 @@ namespace RetailManager.GUI
 			_searchTree.Model = model;
 			
 			var data = new SqLiteDataAccess();
+			if (data.LoginUser("test", "what", out User user))
+			{
+				Console.WriteLine(user.DisplayName);
+			}
+
 			foreach (var item in data.GetAllItems())
 			{
 				model.AppendValues(item);
