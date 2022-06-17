@@ -34,6 +34,8 @@ namespace RetailManager.GUI
 
 		public ItemSaleWindow() : base(WindowType.Toplevel)
 		{
+			Maximize();
+			
 			InitSearchTree();
 			InitCartTree();
 			
