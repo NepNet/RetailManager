@@ -1,11 +1,13 @@
 using GLib;
 using Gtk;
+using RetailManager.Data;
 
 namespace RetailManager.GUI
 {
 	public class CartView
 	{
-		private ListStore _model;
+		private CartModel _model;
+		private Cart _cart;
 
 		private Label _priceLabel;
 		private Label _vatLabel;
@@ -22,7 +24,8 @@ namespace RetailManager.GUI
 			_vatLabel = vat;
 			_totalLabel = total;
 			
-			_model = new ListStore(typeof(CartItem));
+			_cart = new Cart();
+			_model = new CartModel(_cart);
 			treeView.Model = _model;
 			
 			Clear();
@@ -34,7 +37,7 @@ namespace RetailManager.GUI
 					if (args.Event.Key != Gdk.Key.Delete) return;
 					
 					treeView.Selection.GetSelected(out var iter);
-					Remove(ref iter);
+					Remove((CartItem)_model.GetValue(iter, 0));
 				};
 			}
 			else
@@ -83,20 +86,19 @@ namespace RetailManager.GUI
 
 		public void Clear()
 		{
-			_model.Clear();
+			_cart.Clear();
 			UpdateTotal();
 		}
 
 		public void Add(CartItem item)
 		{
-			_model.AppendValues(item);
+			_cart.AddItem(item.Item, item.Quantity);
 			UpdateTotal();
 		}
 
-		private void Remove(ref TreeIter iter)
+		private void Remove(CartItem item)
 		{
-			var item = (CartItem)_model.GetValue(iter, 0);
-			_model.Remove(ref iter);
+			_cart.RemoveItem(item);
 			UpdateTotal();
 		}
 		
@@ -104,16 +106,12 @@ namespace RetailManager.GUI
 		{
 			decimal vat = 0;
 			decimal total = 0;
-
-			_model.Foreach(delegate(ITreeModel model, TreePath path, TreeIter iter)
+			
+			foreach (var item in _cart)
 			{
-				var item = (CartItem)model.GetValue(iter, 0);
-				
 				total += item.TotalPrice;
 				vat += item.TotalVAT;
-				
-				return false;
-			});
+			}
 			
 			decimal price = total - vat;
 
@@ -160,9 +158,11 @@ namespace RetailManager.GUI
 			
 			if (value >= 100) return;
 			
-			_model.GetIter(out var iter, new TreePath(args.Path));
-			var item = (CartItem) _model.GetValue(iter, 0);
-			item.Discount = value / 100;
+			if (int.TryParse(args.Path, out var index))
+			{
+				var item = _cart[index];
+				item.Discount = value / 100;
+			}
 			
 			UpdateTotal();
 		}
@@ -171,17 +171,20 @@ namespace RetailManager.GUI
 		{
 			if (!decimal.TryParse(args.NewText, out var value)) return;
 			
-			_model.GetIter(out var iter, new TreePath(args.Path));
-			if (value <= 0) 
+			if (int.TryParse(args.Path, out var index))
 			{
-				Remove(ref iter);
+				var item = _cart[index];
+				
+				if (value <= 0)
+				{
+					Remove(item);
+				}
+				else
+				{
+					item.Quantity = value;
+				}
 			}
-			else
-			{
-				var item = (CartItem) _model.GetValue(iter, 0);
-				item.Quantity = value;
-			}
-			
+
 			UpdateTotal();
 		}
 	}
