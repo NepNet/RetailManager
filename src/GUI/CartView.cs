@@ -6,7 +6,6 @@ namespace RetailManager.GUI
 {
 	public class CartView
 	{
-		private CartModel _model;
 		private Cart _cart;
 
 		private Label _priceLabel;
@@ -25,8 +24,8 @@ namespace RetailManager.GUI
 			_totalLabel = total;
 			
 			_cart = new Cart();
-			_model = new CartModel(_cart);
-			treeView.Model = _model;
+			var model = new CartModel(_cart);
+			treeView.Model = model;
 			
 			Clear();
 			
@@ -37,7 +36,7 @@ namespace RetailManager.GUI
 					if (args.Event.Key != Gdk.Key.Delete) return;
 					
 					treeView.Selection.GetSelected(out var iter);
-					Remove((CartItem)_model.GetValue(iter, 0));
+					Remove((CartItem)model.GetValue(iter, 0));
 				};
 			}
 			else

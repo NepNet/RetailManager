@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Cairo;
 using GLib;
-using Gtk;
 using RetailManager.GUI;
 using Application = Gtk.Application;
 
