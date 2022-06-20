@@ -113,7 +113,7 @@ namespace RetailManager.GUI
 				vat += item.TotalVAT;
 			}
 			
-			decimal price = total - vat;
+			var price = total - vat;
 
 			const string currency = "$";
 			
@@ -122,33 +122,33 @@ namespace RetailManager.GUI
 			_totalLabel.Text = $"{total:0.00} {currency}";
 		}
 		
-		private void TotalPriceCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void TotalPriceCellFunc(TreeViewColumn _, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (CartItem)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.TotalPrice.ToString("0.00")));
 		}
 
-		private void DiscountCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void DiscountCellFunc(TreeViewColumn _, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (CartItem)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Discount.ToString("0.00%")));
 		}
 
-		private void UnitPriceCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void UnitPriceCellFunc(TreeViewColumn _, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (CartItem)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.UnitPrice.ToString("0.00")));
 		}
 
-		private void CartNameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void CartNameCellFunc(TreeViewColumn _, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (CartItem)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Name));
 		}
 
-		private void CartQuantityCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void CartQuantityCellFunc(TreeViewColumn _, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (CartItem)tree_model.GetValue(iter, 0);
+			var item = (CartItem)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Quantity.ToString("0.000")));
 		}
 
