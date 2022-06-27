@@ -32,7 +32,7 @@ namespace RetailManager.GUI
 		private CartView _cart;
 		private TreeModelFilter _searchFilterModel;
 
-		public ItemSaleWindow() : base(WindowType.Toplevel)
+		public ItemSaleWindow(User user) : base(user.DisplayName)
 		{
 			Maximize();
 			
@@ -87,47 +87,32 @@ namespace RetailManager.GUI
 
 		private void SetupPaymentTypeArea()
 		{
-			static string[] GetEnumNames(Type enumType)
+			var methods = Utilities.CreateRadioFromEnum<PaymentMethod>(PaymentMethodChanged);
+			var receipts = Utilities.CreateRadioFromEnum<ReceiptType>(type => Console.WriteLine($"Receipt: {type}"));
+
+			foreach (var radio in methods)
 			{
-				var raw = Enum.GetNames(enumType);
-				for (int i = 0; i < raw.Length; i++)
-				{
-					raw[i] = raw[i].Replace('_', ' ');
-				}
-				return raw;
-			}
-			
-			var paymentMethodNames = GetEnumNames(typeof(PaymentMethod));
-			RadioButton first = null;
-			foreach (var name in paymentMethodNames)
-			{
-				var radio = new RadioButton(first, name);
-				first ??= radio;
-				
 				_paymentMethodBox.Add(radio);
-				radio.Show();
-				radio.Clicked += PaymentMethodChanged;
 			}
 			
-			
-			first = null;
-			var receiptTypeNames = GetEnumNames(typeof(ReceiptType));
-			foreach (var name in receiptTypeNames)
+			foreach (var radio in receipts)
 			{
-				var radio = new RadioButton(first, name);
-				first ??= radio;
 				_receiptTypeBox.Add(radio);
-				radio.Show();
 			}
 		}
-
+		
+		private void PaymentMethodChanged(PaymentMethod method)
+		{
+			Console.WriteLine(method.ToString());
+		}
+		/*
 		private void PaymentMethodChanged(object? sender, EventArgs e)
 		{
 			if (!(sender is RadioButton radio)) return;
 			
 			if (radio.Active)
 				Console.WriteLine(radio.Label);
-		}
+		}*/
 
 		private void ClearCart(object? sender, EventArgs e)
 		{
@@ -167,11 +152,7 @@ namespace RetailManager.GUI
 			_searchTree.Model = model;
 			
 			var data = new SqLiteDataAccess();
-			if (data.LoginUser("test", "what", out User user))
-			{
-				Console.WriteLine(user.DisplayName);
-			}
-
+			
 			foreach (var item in data.GetAllItems())
 			{
 				model.AppendValues(item);

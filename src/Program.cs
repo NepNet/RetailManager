@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using GLib;
+using RetailManager.Data;
 using RetailManager.GUI;
 using Application = Gtk.Application;
 
@@ -35,11 +36,18 @@ namespace RetailManager
 		{
 			if (!_initialized)
 			{
-				var window = new ItemSaleWindow();
-				//var window = new ClientSelectionDialog();
-				_app.AddWindow(window);
+				var data = new SqLiteDataAccess();
+				if (data.LoginUser("test", "what", out User user))
+				{
+					var window = new ItemSaleWindow(user);
+					
+					_app.AddWindow(window);
 			
-				window.Show();
+					window.Show();
+				}
+				
+				//var window = new ClientSelectionDialog();
+				
 				_initialized = true;
 			}
 		}
