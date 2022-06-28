@@ -27,12 +27,15 @@
       <change afterPath="$PROJECT_DIR$/src/.idea/.idea.src.dir/.idea/dataSources.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/.idea/.idea.src.dir/.idea/sqldialects.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/PaymentData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentOrderHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/CardPaymentProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/CashPaymentProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/PaymentOrderPaymentHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IPaymentProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaymentProcessors/IPaymentProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PaymentHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaymentHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PaymentHandler.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,10 +52,17 @@
         <option value="$PROJECT_DIR$/src/IPaymentHandler.cs" />
         <option value="$PROJECT_DIR$/src/PaymentData.cs" />
         <option value="$PROJECT_DIR$/src/IPaymentProcessor.cs" />
-        <option value="$PROJECT_DIR$/src/Program.cs" />
         <option value="$PROJECT_DIR$/src/PaymentOrderHandler.cs" />
         <option value="$PROJECT_DIR$/src/PaymentHandler.cs" />
         <option value="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/CashPaymentHandler.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/PaymentOrderHandler.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/PaymentOrderPaymentHandler.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/IPaymentProcessor.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" />
+        <option value="$PROJECT_DIR$/src/Program.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/CardPaymentProcessor.cs" />
+        <option value="$PROJECT_DIR$/src/PaymentProcessors/CashPaymentProcessor.cs" />
       </list>
     </option>
   </component>
@@ -105,8 +115,16 @@
       <option name="presentableId" value="Default" />
       <updated>1654583338716</updated>
       <workItem from="1654583344432" duration="23000" />
-      <workItem from="1656417777676" duration="4034000" />
+      <workItem from="1656417777676" duration="4449000" />
     </task>
+    <task id="LOCAL-00001" summary="Some messup">
+      <created>1656422798317</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656422798317</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,32 +145,38 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Some messup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some messup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="423" y="217" width="424" height="478" key="FileChooserDialogImpl" timestamp="1656418497854">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state x="423" y="217" width="424" height="478" key="FileChooserDialogImpl/0.0.1920.920@0.0.1920.920" timestamp="1656418497854" />
-    <state width="1238" height="163" key="GridCell.Tab.0.bottom" timestamp="1656422028823">
+    <state width="1238" height="163" key="GridCell.Tab.0.bottom" timestamp="1656422633061">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
-    <state width="1238" height="163" key="GridCell.Tab.0.bottom/0.0.1920.920@0.0.1920.920" timestamp="1656422028823" />
-    <state width="1238" height="163" key="GridCell.Tab.0.center" timestamp="1656422028823">
+    <state width="1238" height="163" key="GridCell.Tab.0.bottom/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
+    <state width="1238" height="163" key="GridCell.Tab.0.center" timestamp="1656422633061">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
-    <state width="1238" height="163" key="GridCell.Tab.0.center/0.0.1920.920@0.0.1920.920" timestamp="1656422028823" />
-    <state width="1238" height="163" key="GridCell.Tab.0.left" timestamp="1656422028822">
+    <state width="1238" height="163" key="GridCell.Tab.0.center/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
+    <state width="1238" height="163" key="GridCell.Tab.0.left" timestamp="1656422633060">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
-    <state width="1238" height="163" key="GridCell.Tab.0.left/0.0.1920.920@0.0.1920.920" timestamp="1656422028822" />
-    <state width="1238" height="163" key="GridCell.Tab.0.right" timestamp="1656422028823">
+    <state width="1238" height="163" key="GridCell.Tab.0.left/0.0.1920.920@0.0.1920.920" timestamp="1656422633060" />
+    <state width="1238" height="163" key="GridCell.Tab.0.right" timestamp="1656422633061">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
-    <state width="1238" height="163" key="GridCell.Tab.0.right/0.0.1920.920@0.0.1920.920" timestamp="1656422028823" />
+    <state width="1238" height="163" key="GridCell.Tab.0.right/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
     <state x="351" y="220" width="800" height="524" key="Rider.ProjectTemplateDialog.Size" timestamp="1656419841832">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="351" y="220" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1656419841832" />
     <state x="234" y="193" width="800" height="524" key="Rider.ProjectTemplateDialog.Size/0.0.1920.920@0.0.1920.920" timestamp="1656418484628" />
+    <state x="235" y="195" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1656422800118">
+      <screen x="0" y="0" width="1920" height="920" />
+    </state>
+    <state x="235" y="195" width="800" height="522" key="Vcs.Push.Dialog.v2/0.0.1920.920@0.0.1920.920" timestamp="1656422800118" />
   </component>
 </project>

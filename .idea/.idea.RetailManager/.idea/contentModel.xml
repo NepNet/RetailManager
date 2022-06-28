@@ -41,7 +41,7 @@
         <e p="PaymentMethod.cs" t="Include" />
         <e p="PaymentProcessors" t="Include">
           <e p="CardPaymentProcessor.cs" t="Include" />
-          <e p="CashPaymentHandler.cs" t="Include" />
+          <e p="CashPaymentProcessor.cs" t="Include" />
           <e p="IPaymentProcessor.cs" t="Include" />
           <e p="PaymentHandler.cs" t="Include" />
           <e p="PaymentOrderPaymentHandler.cs" t="Include" />
