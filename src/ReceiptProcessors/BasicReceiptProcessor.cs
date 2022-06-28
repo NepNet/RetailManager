@@ -4,9 +4,9 @@ namespace RetailManager.ReceiptProcessors
 {
 	public class BasicReceiptProcessor : IReceiptProcessor
 	{
-		public Task Preprocess()
+		public async Task<int> Preprocess()
 		{
-			return Task.CompletedTask;
+			return 0;
 		}
 	}
 }

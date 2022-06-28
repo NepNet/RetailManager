@@ -63,6 +63,7 @@ namespace RetailManager.GUI
 
 		private void OnCancel(object sender, EventArgs e)
 		{
+			Respond(ResponseType.Cancel);
 			Dispose();
 		}
 
@@ -71,6 +72,8 @@ namespace RetailManager.GUI
 			_clientsTreeView.Selection.GetSelected(out var iter);
 			var client = _clientsList.GetValue(iter, 0) as ClientInfo;
 			ClientSelected?.Invoke(client);
+			
+			Respond(ResponseType.Accept);
 			Dispose();
 		}
 

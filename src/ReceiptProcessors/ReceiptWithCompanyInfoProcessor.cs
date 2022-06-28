@@ -1,21 +1,37 @@
+using System;
 using System.Threading.Tasks;
 using Gtk;
+using RetailManager.GUI;
 
 namespace RetailManager.ReceiptProcessors
 {
 	public class ReceiptWithCompanyInfoProcessor : IReceiptProcessor
 	{
-		public Task Preprocess()
+		public async Task<int> Preprocess()
 		{
-			var window = new Window("Company code");
+			var tcs = new TaskCompletionSource<int>();
 			
-			var entry = new Entry("CODE");
-			
-			window.Add(entry);
-			
+			var window = new ClientSelectionDialog();
+
+			window.Response += (o, args) =>
+			{
+				if (args.ResponseId == ResponseType.Accept)
+				{
+					tcs.SetResult(0);
+				}
+				else
+				{
+					tcs.SetResult(1);
+				}
+				
+				window.Dispose();
+			};
+
 			window.ShowAll();
+
+			window.KeepAbove = true;
 			
-			return Task.CompletedTask;
+			return await tcs.Task;
 		}
 	}
 }

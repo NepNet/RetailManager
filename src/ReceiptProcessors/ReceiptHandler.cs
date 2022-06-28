@@ -11,9 +11,9 @@ namespace RetailManager.ReceiptProcessors
 			methods.Add(type, new T());
 		}
 
-		public static async Task Preprocess(ReceiptType type)
+		public static async Task<int> Preprocess(ReceiptType type)
 		{
-			await methods[type].Preprocess();
+			return await methods[type].Preprocess();
 		}
 	}
 }

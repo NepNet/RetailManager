@@ -4,6 +4,6 @@ namespace RetailManager.ReceiptProcessors
 {
 	public interface IReceiptProcessor
 	{
-		public Task Preprocess();
+		public Task<int> Preprocess();
 	}
 }

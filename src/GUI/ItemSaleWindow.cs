@@ -3,6 +3,8 @@ using GLib;
 using Gtk;
 using RetailManager.Data;
 using RetailManager.PaymentProcessors;
+using RetailManager.ReceiptProcessors;
+using Task = System.Threading.Tasks.Task;
 
 namespace RetailManager.GUI
 {
@@ -69,35 +71,48 @@ namespace RetailManager.GUI
 		private async void OnSaleConfirm(object? sender, EventArgs e)
 		{
 			Sensitive = false;
-			var popup = new Window(WindowType.Popup);
-			
-			popup.WindowPosition = WindowPosition.Center;
-			popup.WidthRequest = 200;
-			popup.HeightRequest = 70;
-			var box = new Box(Orientation.Horizontal, 6);
-			box.Halign = Align.Center;
-			box.Valign = Align.Center;
-			box.Add(new Spinner() {Active = true});
-			box.Add(new Label("Waiting for response..."));
-			popup.Add(box);
-			popup.ShowAll();
+
 
 			try
 			{
-				var result = await PaymentHandler.Process(
-					new PaymentData(){
-						Method = _paymentMethod, 
-						ReceiptType = _receiptType
-					});
+				var data = new PaymentData()
+				{
+					Method = _paymentMethod,
+					ReceiptType = _receiptType
+				};
 				
-				Console.WriteLine(result);
+				int receiptPreprocess = await ReceiptHandler.Preprocess(data.ReceiptType);
+				
+				if (receiptPreprocess == 0)
+				{
+					var popup = new Window(WindowType.Popup);
+
+					popup.WindowPosition = WindowPosition.Center;
+					popup.WidthRequest = 200;
+					popup.HeightRequest = 70;
+					var box = new Box(Orientation.Horizontal, 6);
+					box.Halign = Align.Center;
+					box.Valign = Align.Center;
+					box.Add(new Spinner() {Active = true});
+					box.Add(new Label("Waiting for response..."));
+					popup.Add(box);
+
+					popup.ShowAll();
+
+					await Task.Delay(2000);
+					var result = await PaymentHandler.Process(data);
+
+					popup.Dispose();
+
+					Console.WriteLine(result);
+				}
 			}
 			catch (Exception exception)
 			{
 				Console.WriteLine(exception);
 			}
+			
 
-			popup.Dispose();
 			Sensitive = true;
 		}
 
