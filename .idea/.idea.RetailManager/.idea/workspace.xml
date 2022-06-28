@@ -23,20 +23,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36baeb20-1350-47b4-818a-339948cf5535" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/RetailManager.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.idea.src.dir/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.idea.src.dir/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/CardPaymentProcessor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/CashPaymentProcessor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PaymentProcessors/PaymentOrderPaymentHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ReceiptProcessors/BasicReceiptProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ReceiptProcessors/IReceiptProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptWithCompanyInfoProcessor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IPaymentProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaymentProcessors/IPaymentProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PaymentHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +54,11 @@
         <option value="$PROJECT_DIR$/src/Program.cs" />
         <option value="$PROJECT_DIR$/src/PaymentProcessors/CardPaymentProcessor.cs" />
         <option value="$PROJECT_DIR$/src/PaymentProcessors/CashPaymentProcessor.cs" />
+        <option value="$PROJECT_DIR$/src/ReceiptHandler.cs" />
+        <option value="$PROJECT_DIR$/src/ReceiptProcessors/IReceiptProcessor.cs" />
+        <option value="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptHandler.cs" />
+        <option value="$PROJECT_DIR$/src/ReceiptProcessors/BasicReceiptProcessor.cs" />
+        <option value="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptWithCompanyInfoProcessor.cs" />
       </list>
     </option>
   </component>
@@ -115,7 +111,7 @@
       <option name="presentableId" value="Default" />
       <updated>1654583338716</updated>
       <workItem from="1654583344432" duration="23000" />
-      <workItem from="1656417777676" duration="4449000" />
+      <workItem from="1656417777676" duration="4877000" />
     </task>
     <task id="LOCAL-00001" summary="Some messup">
       <created>1656422798317</created>
@@ -124,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656422798317</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Some messup">
+      <created>1656422806325</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656422806325</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -4,6 +4,7 @@ using GLib;
 using RetailManager.Data;
 using RetailManager.GUI;
 using RetailManager.PaymentProcessors;
+using RetailManager.ReceiptProcessors;
 using Application = Gtk.Application;
 
 namespace RetailManager
@@ -33,6 +34,9 @@ namespace RetailManager
 			PaymentHandler.Register<PaymentOrderPaymentHandler>(PaymentMethod.Payment_Order);
 			PaymentHandler.Register<CashPaymentProcessor>(PaymentMethod.Cash);
 			PaymentHandler.Register<CardPaymentProcessor>(PaymentMethod.Card);
+			
+			ReceiptHandler.Register<BasicReceiptProcessor>(ReceiptType.Basic_receipt);
+			ReceiptHandler.Register<ReceiptWithCompanyInfoProcessor>(ReceiptType.Receipt_with_company_code);
 		}
 
 		private static void OnAppStarted(object? sender, EventArgs e)

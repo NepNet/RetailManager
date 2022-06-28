@@ -47,6 +47,12 @@
           <e p="PaymentOrderPaymentHandler.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
+        <e p="ReceiptProcessors" t="Include">
+          <e p="BasicReceiptProcessor.cs" t="Include" />
+          <e p="IReceiptProcessor.cs" t="Include" />
+          <e p="ReceiptHandler.cs" t="Include" />
+          <e p="ReceiptWithCompanyInfoProcessor.cs" t="Include" />
+        </e>
         <e p="ReceiptType.cs" t="Include" />
         <e p="RetailManager.csproj" t="IncludeRecursive" />
         <e p="Utilities.cs" t="Include" />

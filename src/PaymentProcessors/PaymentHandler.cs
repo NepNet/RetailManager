@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RetailManager.ReceiptProcessors;
 
 namespace RetailManager.PaymentProcessors
 {
@@ -14,6 +15,7 @@ namespace RetailManager.PaymentProcessors
 		public static async Task<int> Process(PaymentData data)
 		{
 			await Task.Delay(200);
+			await ReceiptHandler.Preprocess(data.ReceiptType);
 			return await methods[data.Method].Process(data);
 		}
 	}
