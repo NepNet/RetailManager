@@ -3,6 +3,7 @@ using System.Threading;
 using GLib;
 using RetailManager.Data;
 using RetailManager.GUI;
+using RetailManager.PaymentProcessors;
 using Application = Gtk.Application;
 
 namespace RetailManager
@@ -29,7 +30,9 @@ namespace RetailManager
 
 		private static void AppOnStartup(object? sender, EventArgs e)
 		{
-			
+			PaymentHandler.Register<PaymentOrderPaymentHandler>(PaymentMethod.Payment_Order);
+			PaymentHandler.Register<CashPaymentProcessor>(PaymentMethod.Cash);
+			PaymentHandler.Register<CardPaymentProcessor>(PaymentMethod.Card);
 		}
 
 		private static void OnAppStarted(object? sender, EventArgs e)

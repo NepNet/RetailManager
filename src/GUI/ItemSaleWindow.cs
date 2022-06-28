@@ -2,6 +2,7 @@ using System;
 using GLib;
 using Gtk;
 using RetailManager.Data;
+using RetailManager.PaymentProcessors;
 
 namespace RetailManager.GUI
 {
@@ -32,6 +33,9 @@ namespace RetailManager.GUI
 		private CartView _cart;
 		private TreeModelFilter _searchFilterModel;
 
+		private PaymentMethod _paymentMethod;
+		private ReceiptType _receiptType;
+		
 		public ItemSaleWindow(User user) : base(user.DisplayName)
 		{
 			Maximize();
@@ -41,8 +45,8 @@ namespace RetailManager.GUI
 			
 			InitSearch();
 
-			_clearButton.Activated += ClearCart;
-			_clearButton.Clicked += ClearCart;
+			_clearButton.Activated += OnClearCart;
+			_clearButton.Clicked += OnClearCart;
 
 			var selectingItems = true;
 			
@@ -57,7 +61,7 @@ namespace RetailManager.GUI
 				_clearButton.Visible = selectingItems;
 			};
 			
-			_confirmSaleButton.Clicked+= OnSaleConfirm;
+			_confirmSaleButton.Clicked += OnSaleConfirm;
 			
 			SetupPaymentTypeArea();
 		}
@@ -77,18 +81,32 @@ namespace RetailManager.GUI
 			box.Add(new Label("Waiting for response..."));
 			popup.Add(box);
 			popup.ShowAll();
-			
-			var result = await PaymentHandler.Process(PaymentMethod.Cash, ReceiptType.Basic_receipt);
-			
+
+			try
+			{
+				var result = await PaymentHandler.Process(
+					new PaymentData(){
+						Method = _paymentMethod, 
+						ReceiptType = _receiptType
+					});
+				
+				Console.WriteLine(result);
+			}
+			catch (Exception exception)
+			{
+				Console.WriteLine(exception);
+			}
+
 			popup.Dispose();
 			Sensitive = true;
-
 		}
 
 		private void SetupPaymentTypeArea()
 		{
-			var methods = Utilities.CreateRadioFromEnum<PaymentMethod>(PaymentMethodChanged);
-			var receipts = Utilities.CreateRadioFromEnum<ReceiptType>(type => Console.WriteLine($"Receipt: {type}"));
+			var methods = Utilities.CreateRadioFromEnum<PaymentMethod>
+				(pay => _paymentMethod = pay);
+			var receipts = Utilities.CreateRadioFromEnum<ReceiptType>
+				(type => _receiptType = type);
 
 			foreach (var radio in methods)
 			{
@@ -101,20 +119,7 @@ namespace RetailManager.GUI
 			}
 		}
 		
-		private void PaymentMethodChanged(PaymentMethod method)
-		{
-			Console.WriteLine(method.ToString());
-		}
-		/*
-		private void PaymentMethodChanged(object? sender, EventArgs e)
-		{
-			if (!(sender is RadioButton radio)) return;
-			
-			if (radio.Active)
-				Console.WriteLine(radio.Label);
-		}*/
-
-		private void ClearCart(object? sender, EventArgs e)
+		private void OnClearCart(object? sender, EventArgs e)
 		{
 			_cart.Clear();
 		}
