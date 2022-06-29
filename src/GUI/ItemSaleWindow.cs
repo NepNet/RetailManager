@@ -85,21 +85,8 @@ namespace RetailManager.GUI
 				
 				if (receiptPreprocess == 0)
 				{
-					var popup = new Window(WindowType.Popup);
-
-					popup.WindowPosition = WindowPosition.Center;
-					popup.WidthRequest = 200;
-					popup.HeightRequest = 70;
-					var box = new Box(Orientation.Horizontal, 6);
-					box.Halign = Align.Center;
-					box.Valign = Align.Center;
-					box.Add(new Spinner() {Active = true});
-					box.Add(new Label("Waiting for response..."));
-					popup.Add(box);
-
-					popup.ShowAll();
-
-					await Task.Delay(2000);
+					var popup = new WaitingPopup("Waiting for response...");
+					
 					var result = await PaymentHandler.Process(data);
 
 					popup.Dispose();

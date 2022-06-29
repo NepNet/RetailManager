@@ -6,6 +6,8 @@ namespace RetailManager.PaymentProcessors
 	{
 		public async Task<int> Process(PaymentData data)
 		{
+			await Task.Delay(2000);
+			
 			return data.ReceiptType switch
 			{
 				ReceiptType.Basic_receipt => 0,

@@ -23,15 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36baeb20-1350-47b4-818a-339948cf5535" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GUI/WaitingPopup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RetailManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ClientSelectionDialog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ClientSelectionDialog.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReceiptProcessors/BasicReceiptProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReceiptProcessors/BasicReceiptProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReceiptProcessors/IReceiptProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReceiptProcessors/IReceiptProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptWithCompanyInfoProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReceiptProcessors/ReceiptWithCompanyInfoProcessor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +57,7 @@
         <option value="$PROJECT_DIR$/src/GUI/ClientSelectionDialog.cs" />
         <option value="$PROJECT_DIR$/src/PaymentProcessors/PaymentHandler.cs" />
         <option value="$PROJECT_DIR$/src/GUI/ItemSaleWindow.cs" />
+        <option value="$PROJECT_DIR$/src/GUI/WaitingPopup.cs" />
       </list>
     </option>
   </component>
@@ -118,6 +112,7 @@
       <workItem from="1654583344432" duration="23000" />
       <workItem from="1656417777676" duration="4877000" />
       <workItem from="1656444179700" duration="2210000" />
+      <workItem from="1656487433230" duration="819000" />
     </task>
     <task id="LOCAL-00001" summary="Some messup">
       <created>1656422798317</created>
@@ -163,31 +158,35 @@
       <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state x="423" y="217" width="424" height="478" key="FileChooserDialogImpl/0.0.1920.920@0.0.1920.920" timestamp="1656418497854" />
-    <state width="1878" height="274" key="GridCell.Tab.0.bottom" timestamp="1656446288064">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="619" height="138" key="GridCell.Tab.0.bottom" timestamp="1656487563269">
+      <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state width="1878" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1656446288064" />
-    <state width="1238" height="163" key="GridCell.Tab.0.bottom/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
-    <state width="1878" height="274" key="GridCell.Tab.0.center" timestamp="1656446288063">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="619" height="138" key="GridCell.Tab.0.bottom/0.0.1920.920@0.0.1920.920" timestamp="1656487563269" />
+    <state width="619" height="138" key="GridCell.Tab.0.center" timestamp="1656487563268">
+      <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state width="1878" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1656446288063" />
-    <state width="1238" height="163" key="GridCell.Tab.0.center/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
-    <state width="1878" height="274" key="GridCell.Tab.0.left" timestamp="1656446288063">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="619" height="138" key="GridCell.Tab.0.center/0.0.1920.920@0.0.1920.920" timestamp="1656487563268" />
+    <state width="619" height="138" key="GridCell.Tab.0.left" timestamp="1656487563267">
+      <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state width="1878" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1656446288063" />
-    <state width="1238" height="163" key="GridCell.Tab.0.left/0.0.1920.920@0.0.1920.920" timestamp="1656422633060" />
-    <state width="1878" height="274" key="GridCell.Tab.0.right" timestamp="1656446288064">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="619" height="138" key="GridCell.Tab.0.left/0.0.1920.920@0.0.1920.920" timestamp="1656487563267" />
+    <state width="619" height="138" key="GridCell.Tab.0.right" timestamp="1656487563269">
+      <screen x="0" y="0" width="1920" height="920" />
     </state>
     <state width="1878" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1656446288064" />
-    <state width="1238" height="163" key="GridCell.Tab.0.right/0.0.1920.920@0.0.1920.920" timestamp="1656422633061" />
+    <state width="619" height="138" key="GridCell.Tab.0.right/0.0.1920.920@0.0.1920.920" timestamp="1656487563269" />
     <state x="351" y="220" width="800" height="524" key="Rider.ProjectTemplateDialog.Size" timestamp="1656419841832">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="351" y="220" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1040@0.0.1920.1040" timestamp="1656419841832" />
     <state x="234" y="193" width="800" height="524" key="Rider.ProjectTemplateDialog.Size/0.0.1920.920@0.0.1920.920" timestamp="1656418484628" />
+    <state x="459" y="180" width="351" height="552" key="RiderGenerateDialog" timestamp="1656488251339">
+      <screen x="0" y="0" width="1920" height="920" />
+    </state>
+    <state x="459" y="180" width="351" height="552" key="RiderGenerateDialog/0.0.1920.920@0.0.1920.920" timestamp="1656488251339" />
     <state x="235" y="195" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1656422800118">
       <screen x="0" y="0" width="1920" height="920" />
     </state>
