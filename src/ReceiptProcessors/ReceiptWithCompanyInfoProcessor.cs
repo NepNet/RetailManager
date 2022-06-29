@@ -7,7 +7,7 @@ namespace RetailManager.ReceiptProcessors
 {
 	public class ReceiptWithCompanyInfoProcessor : IReceiptProcessor
 	{
-		public async Task<int> Preprocess()
+		public async Task<int> Preprocess(PaymentData data)
 		{
 			var tcs = new TaskCompletionSource<int>();
 			

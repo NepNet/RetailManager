@@ -3,7 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>latestmajor</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>mockup</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,33 +30,6 @@
     <Reference Include="PangoSharp, Version=3.24.24.1, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\PangoSharp.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  
-  <ItemGroup>
-    
-    <EmbeddedResource Include="GUI\ClientInfoWindow.glade">
-      <DependentUpon>ClientInfoWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    
-    <EmbeddedResource Include="GUI\Template.glade">
-      <DependentUpon>Template.cs</DependentUpon>
-    </EmbeddedResource>
-    
-    <EmbeddedResource Include="GUI\ItemSaleWindow.glade">
-      <DependentUpon>ItemSaleWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    
-    <None Remove="GUI\ClientSelectionDialog.glade" />
-    
-    <EmbeddedResource Include="GUI\ClientSelectionDialog.glade">
-      <DependentUpon>ClientSelectionDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.6" />
   </ItemGroup>
 
 </Project>

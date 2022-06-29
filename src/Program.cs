@@ -37,6 +37,7 @@ namespace RetailManager
 			
 			ReceiptHandler.Register<BasicReceiptProcessor>(ReceiptType.Basic_receipt);
 			ReceiptHandler.Register<ReceiptWithCompanyInfoProcessor>(ReceiptType.Receipt_with_company_code);
+			ReceiptHandler.Register<InvoiceProcessor>(ReceiptType.Invoice);
 		}
 
 		private static void OnAppStarted(object? sender, EventArgs e)
@@ -51,9 +52,9 @@ namespace RetailManager
 					_app.AddWindow(window);
 			
 					window.Show();
+					
+					new ClientInfoWindow(new ClientInfo()).Show();
 				}
-				
-				//var window = new ClientSelectionDialog();
 				
 				_initialized = true;
 			}

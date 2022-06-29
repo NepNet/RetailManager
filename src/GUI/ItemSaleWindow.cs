@@ -32,7 +32,7 @@ namespace RetailManager.GUI
 		[Child] private Button _confirmSaleButton;
 
 		private ListStore _searchListStore;
-		private CartView _cart;
+		private CartView _cartView;
 		private TreeModelFilter _searchFilterModel;
 
 		private PaymentMethod _paymentMethod;
@@ -72,33 +72,20 @@ namespace RetailManager.GUI
 		{
 			Sensitive = false;
 
+			var data = new PaymentData(_paymentMethod, _receiptType, _cartView.Model);
 
-			try
+			if (await ReceiptHandler.Preprocess(data) == 0)
 			{
-				var data = new PaymentData()
-				{
-					Method = _paymentMethod,
-					ReceiptType = _receiptType
-				};
+				var popup = new WaitingPopup("Waiting for response...");
 				
-				int receiptPreprocess = await ReceiptHandler.Preprocess(data.ReceiptType);
-				
-				if (receiptPreprocess == 0)
+				var result = await PaymentHandler.Process(data);
+
+				if (result != 0)
 				{
-					var popup = new WaitingPopup("Waiting for response...");
 					
-					var result = await PaymentHandler.Process(data);
-
-					popup.Dispose();
-
-					Console.WriteLine(result);
 				}
+				popup.Dispose();
 			}
-			catch (Exception exception)
-			{
-				Console.WriteLine(exception);
-			}
-			
 
 			Sensitive = true;
 		}
@@ -123,7 +110,7 @@ namespace RetailManager.GUI
 		
 		private void OnClearCart(object? sender, EventArgs e)
 		{
-			_cart.Clear();
+			_cartView.Clear();
 		}
 
 		private void InitSearch()
@@ -179,13 +166,13 @@ namespace RetailManager.GUI
 				{
 					Quantity = 1,
 				};
-				_cart.Add(item);
+				_cartView.Add(item);
 			};
 		}
 		
 		private void InitCartTree()
 		{
-			_cart = new CartView(_cartTree, _priceLabel, _vatLabel, _totalLabel, true);
+			_cartView = new CartView(_cartTree, _priceLabel, _vatLabel, _totalLabel, true);
 		}
 		
 		private void NameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)

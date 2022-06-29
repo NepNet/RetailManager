@@ -6,13 +6,8 @@ namespace RetailManager.PaymentProcessors
 	{
 		public async Task<int> Process(PaymentData data)
 		{
-			return data.ReceiptType switch
-			{
-				ReceiptType.Basic_receipt => 0,
-				ReceiptType.Receipt_with_company_code => 2,
-				ReceiptType.Invoice => 5,
-				_ => 222
-			};
+			await Task.Delay(5000);
+			return 0;
 		}
 	}
 }

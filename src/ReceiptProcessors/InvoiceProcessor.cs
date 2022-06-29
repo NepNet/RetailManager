@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 
 namespace RetailManager.ReceiptProcessors
 {
-	public class BasicReceiptProcessor : IReceiptProcessor
+	public class InvoiceProcessor : IReceiptProcessor
 	{
 		public async Task<int> Preprocess(PaymentData data)
 		{
-			return 0;
+			return 5;
 		}
 	}
 }

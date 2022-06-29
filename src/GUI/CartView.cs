@@ -7,6 +7,7 @@ namespace RetailManager.GUI
 	public class CartView
 	{
 		private Cart _cart;
+		public Cart Model => _cart;
 
 		private Label _priceLabel;
 		private Label _vatLabel;

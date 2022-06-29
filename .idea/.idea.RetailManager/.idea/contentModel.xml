@@ -6,6 +6,20 @@
     <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="MockUp" t="IncludeRecursive">
+        <e p="CashRegisterWindow.cs" t="Include" />
+        <e p="MockUp.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net6.0" t="Include">
+              <e p="MockUp.AssemblyInfo.cs" t="Include" />
+              <e p="MockUp.GlobalUsings.g.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="RetailManager.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="src" t="IncludeRecursive">
@@ -23,18 +37,16 @@
         <e p="GUI" t="Include">
           <e p="CartModel.cs" t="Include" />
           <e p="CartView.cs" t="Include" />
+          <e p="ClientInfoWindow.cs" t="Include" />
+          <e p="ClientInfoWindow.glade" t="Include" />
           <e p="ClientSelectionDialog.cs" t="Include" />
           <e p="ClientSelectionDialog.glade" t="Include" />
-          <e p="ClientSelectionWindow.glade~" t="Include" />
           <e p="CustomModel.cs" t="Include" />
           <e p="GUIConstants.cs" t="Include" />
           <e p="ItemSaleWindow.cs" t="Include" />
           <e p="ItemSaleWindow.glade" t="Include" />
-          <e p="ItemSaleWindow.glade~" t="Include" />
-          <e p="SaleWindow.glade~" t="Include" />
           <e p="Template.cs" t="Include" />
           <e p="Template.glade" t="Include" />
-          <e p="Template.glade~" t="Include" />
           <e p="WaitingPopup.cs" t="Include" />
         </e>
         <e p="PDF" t="Include">
@@ -55,6 +67,7 @@
         <e p="ReceiptProcessors" t="Include">
           <e p="BasicReceiptProcessor.cs" t="Include" />
           <e p="IReceiptProcessor.cs" t="Include" />
+          <e p="InvoiceProcessor.cs" t="Include" />
           <e p="ReceiptHandler.cs" t="Include" />
           <e p="ReceiptWithCompanyInfoProcessor.cs" t="Include" />
         </e>

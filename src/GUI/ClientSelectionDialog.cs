@@ -1,6 +1,7 @@
 using System;
 using GLib;
 using Gtk;
+using RetailManager.Data;
 using Action = System.Action;
 
 namespace RetailManager.GUI
@@ -71,6 +72,10 @@ namespace RetailManager.GUI
 		{
 			_clientsTreeView.Selection.GetSelected(out var iter);
 			var client = _clientsList.GetValue(iter, 0) as ClientInfo;
+			if (client is null)
+			{
+				return;
+			}
 			ClientSelected?.Invoke(client);
 			
 			Respond(ResponseType.Accept);
