@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using GLib;
 using Gtk;
 using RetailManager.Data;
@@ -9,6 +10,7 @@ namespace RetailManager.GUI
 	[Template(GUIConstants.RES + nameof(ClientInfoWindow))]
 	public class ClientInfoWindow : Window
 	{
+		[Child] private Label _idLabel;
 		[Child] private Entry _nameEntry;
 		[Child] private Entry _companyCodeEntry;
 		[Child] private Entry _addressEntry;
@@ -26,11 +28,39 @@ namespace RetailManager.GUI
 		private bool _editing;
 
 		private Entry[] _entries;
-		private ClientInfo _clientInfo;
+		private Customer _customer;
 
-		public ClientInfoWindow() : base("")
+		public static async Task<Customer> CreateRegistrationWindow()
 		{
-			_clientInfo = new ClientInfo();
+			var tcs = new TaskCompletionSource<Customer>();
+			
+			var window = new ClientInfoWindow(out var client);
+			var completed = false;
+			window._okButton.Clicked += (sender, args) =>
+			{
+				if (completed) return;
+				
+				tcs.SetResult(client);
+				completed = true;
+				window.Destroy();
+			};
+			window.Destroyed += (sender, args) =>
+			{
+				if (!completed)
+				{ 
+					tcs.SetCanceled();
+				}
+			};
+			
+			window.Show();
+			
+			return await tcs.Task;
+		}
+		
+		private ClientInfoWindow(out Customer customer) : base("Register new customer")
+		{
+			_customer = new Customer();
+			customer = _customer;
 			
 			_editing = false;
 			
@@ -43,9 +73,9 @@ namespace RetailManager.GUI
 			_historyButton.Visible = false;
 		}
 
-		public ClientInfoWindow(ClientInfo client) : base(client.Name)
+		public ClientInfoWindow(Customer customer) : base(customer.Name)
 		{
-			_clientInfo = client;
+			_customer = customer;
 			
 			_editing = true;
 			
@@ -81,26 +111,27 @@ namespace RetailManager.GUI
 
 		private void LoadClient()
 		{
-			_nameEntry.Text = _clientInfo.Name;
-			_companyCodeEntry.Text = _clientInfo.CompanyNumber;
-			_addressEntry.Text = _clientInfo.Address;
-			_cityEntry.Text = _clientInfo.City;
-			_countyEntry.Text = _clientInfo.County;
+			_idLabel.Text = _customer.Id.ToString();
+			_nameEntry.Text = _customer.Name;
+			_companyCodeEntry.Text = _customer.CompanyNumber;
+			_addressEntry.Text = _customer.Address;
+			_cityEntry.Text = _customer.City;
+			_countyEntry.Text = _customer.County;
 		}
 
 		private void SaveClient()
 		{
-			_clientInfo.Name = _nameEntry.Text;
-			_clientInfo.CompanyNumber = _companyCodeEntry.Text;
-			_clientInfo.Address = _addressEntry.Text;
-			_clientInfo.City = _cityEntry.Text;
-			_clientInfo.County = _countyEntry.Text;
+			_customer.Name = _nameEntry.Text;
+			_customer.CompanyNumber = _companyCodeEntry.Text;
+			_customer.Address = _addressEntry.Text;
+			_customer.City = _cityEntry.Text;
+			_customer.County = _countyEntry.Text;
 		}
 
 		private void OnApply(object sender, EventArgs args)
 		{
 			SaveClient();
-			Title = _clientInfo.Name;
+			Title = _customer.Name;
 			OnEditToggle(this, EventArgs.Empty);
 		}
 		

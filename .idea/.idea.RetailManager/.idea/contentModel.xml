@@ -27,7 +27,7 @@
         <e p="Data" t="Include">
           <e p="Cart.cs" t="Include" />
           <e p="CartItem.cs" t="Include" />
-          <e p="ClientInfo.cs" t="Include" />
+          <e p="Customer.cs" t="Include" />
           <e p="IDataAccess.cs" t="Include" />
           <e p="Item.cs" t="Include" />
           <e p="SQLiteDataAccess.cs" t="Include" />

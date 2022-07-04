@@ -7,7 +7,7 @@ namespace RetailManager
 		public PaymentMethod Method { get;}
 		public ReceiptType ReceiptType { get;}
 		public Cart Cart { get; }
-		public ClientInfo Client { get; private set; }
+		public Customer Client { get; private set; }
 		public int ReceiptId { get; set; }
 
 		public PaymentData(PaymentMethod method, ReceiptType type, Cart cart)
@@ -19,7 +19,7 @@ namespace RetailManager
 			ReceiptId = 0;
 		}
 		
-		public void SetClient(ClientInfo info)
+		public void SetClient(Customer info)
 		{
 			Client = info;
 		}
