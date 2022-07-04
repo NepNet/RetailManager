@@ -42,7 +42,7 @@ namespace RetailManager.GUI
 				
 				tcs.SetResult(client);
 				completed = true;
-				window.Destroy();
+				window.Dispose();
 			};
 			window.Destroyed += (sender, args) =>
 			{
@@ -85,6 +85,7 @@ namespace RetailManager.GUI
 			_cancelButton.Clicked += OnEditToggle;
 
 			_applyButton.Clicked += OnApply;
+			_okButton.Clicked += (sender, args) => Dispose();
 		}
 
 		private void Init()
@@ -101,12 +102,8 @@ namespace RetailManager.GUI
 			};
 
 			OnEditToggle(this, EventArgs.Empty);
-			
-			_okButton.Clicked += (sender, args) =>
-			{
-				OnApply(sender, args);
-				Dispose();
-			};
+
+			_okButton.Clicked += OnApply;
 		}
 
 		private void LoadClient()
