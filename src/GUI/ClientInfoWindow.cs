@@ -21,17 +21,44 @@ namespace RetailManager.GUI
 		[Child] private Button _applyButton;
 		[Child] private Button _editButton;
 		[Child] private Button _cancelButton;
+		[Child] private Button _historyButton;
 
 		private bool _editing;
 
 		private Entry[] _entries;
 		private ClientInfo _clientInfo;
-	
+
+		public ClientInfoWindow() : base("")
+		{
+			_clientInfo = new ClientInfo();
+			
+			_editing = false;
+			
+			Init();
+
+			_editButton.Visible = false;
+			_cancelButton.Visible = false;
+			_applyButton.Visible = false;
+			_okButton.Visible = true;
+			_historyButton.Visible = false;
+		}
+
 		public ClientInfoWindow(ClientInfo client) : base(client.Name)
 		{
 			_clientInfo = client;
-			_clientInfo.Name = "aaaaa";
 			
+			_editing = true;
+			
+			Init();
+			
+			_editButton.Clicked += OnEditToggle;
+			_cancelButton.Clicked += OnEditToggle;
+
+			_applyButton.Clicked += OnApply;
+		}
+
+		private void Init()
+		{
 			_entries = new Entry[]
 			{
 				_nameEntry,
@@ -43,13 +70,8 @@ namespace RetailManager.GUI
 				_emailEntry
 			};
 
-			_editing = true;
 			OnEditToggle(this, EventArgs.Empty);
 			
-			_editButton.Clicked += OnEditToggle;
-			_cancelButton.Clicked += OnEditToggle;
-
-			_applyButton.Clicked += OnApply;
 			_okButton.Clicked += (sender, args) =>
 			{
 				OnApply(sender, args);
@@ -78,6 +100,7 @@ namespace RetailManager.GUI
 		private void OnApply(object sender, EventArgs args)
 		{
 			SaveClient();
+			Title = _clientInfo.Name;
 			OnEditToggle(this, EventArgs.Empty);
 		}
 		
@@ -95,7 +118,8 @@ namespace RetailManager.GUI
 			_editButton.Visible = !_editing;
 			_cancelButton.Visible = _editing;
 			_applyButton.Visible = _editing;
-			
+			_okButton.Visible = !_editing;
+			_historyButton.Sensitive = !_editing;
 		}
 	}
 }

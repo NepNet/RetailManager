@@ -53,7 +53,7 @@ namespace RetailManager
 			
 					window.Show();
 					
-					new ClientInfoWindow(new ClientInfo()).Show();
+					new ClientInfoWindow(new ClientInfo(){Name = "tester"}).Show();
 				}
 				
 				_initialized = true;
