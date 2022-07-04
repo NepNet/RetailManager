@@ -54,6 +54,10 @@ namespace RetailManager.GUI
 			nameColumn.Resizable = true;
 			nameColumn.MinWidth = 200;
 			nameColumn.MaxWidth = 700;
+			
+			var companyCodeCell = new CellRendererText();
+			var companyCodeColumn = _clientsTreeView.AppendColumn("Company code", companyCodeCell, NameCellFunc);
+			companyCodeColumn.MinWidth = 100;
 		}
 
 		private async void AddButtonOnClicked(object? sender, EventArgs e)
@@ -63,14 +67,15 @@ namespace RetailManager.GUI
 			try
 			{
 				var customer = await ClientInfoWindow.CreateRegistrationWindow();
-				Console.WriteLine(customer.Name);
-				Show();
+				ClientSelected?.Invoke(customer);
+			
+				Respond(ResponseType.Accept);
+				Dispose();
 			}
 			catch (Exception exception)
 			{
-				
+				Show();
 			}
-			Show();
 		}
 
 		private void NameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
