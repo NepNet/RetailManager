@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using GLib;
 using Gtk;
 using RetailManager.Data;
-using Action = System.Action;
 
 namespace RetailManager.GUI
 {
@@ -52,6 +51,28 @@ namespace RetailManager.GUI
 			var companyCodeCell = new CellRendererText();
 			var companyCodeColumn = _clientsTreeView.AppendColumn("Company code", companyCodeCell, NameCellFunc);
 			companyCodeColumn.MinWidth = 100;
+		}
+
+		public async Task<Customer> WaitClientSelectionAsync()
+		{
+			var tcs = new TaskCompletionSource<Customer>();
+
+			var completed = false;
+			ClientSelected += customer =>
+			{
+				tcs.SetResult(customer);
+				completed = true;
+				Dispose();
+			};
+			DestroyEvent += (o, args) =>
+			{
+				if (!completed)
+				{
+					tcs.SetCanceled();
+				}
+			};
+			
+			return await tcs.Task;
 		}
 
 		private async void AddButtonOnClicked(object? sender, EventArgs e)

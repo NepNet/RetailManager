@@ -82,7 +82,7 @@ namespace RetailManager.GUI
 
 				if (result != 0)
 				{
-					
+					Sensitive = true;
 				}
 				popup.Dispose();
 			}

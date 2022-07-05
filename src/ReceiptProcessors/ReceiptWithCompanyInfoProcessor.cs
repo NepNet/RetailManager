@@ -13,23 +13,22 @@ namespace RetailManager.ReceiptProcessors
 			
 			var window = new ClientSelectionDialog();
 
-			window.Response += (o, args) =>
-			{
-				if (args.ResponseId == ResponseType.Accept)
-				{
-					tcs.SetResult(0);
-				}
-				else
-				{
-					tcs.SetResult(1);
-				}
-				
-				window.Dispose();
-			};
-
 			window.ShowAll();
-
 			window.KeepAbove = true;
+			
+			try
+			{
+				var customer = await window.WaitClientSelectionAsync();
+				tcs.SetResult(0);
+			}
+			catch (TaskCanceledException e)
+			{
+				tcs.SetResult(1);
+			}
+			finally
+			{
+				window.Dispose();
+			}
 			
 			return await tcs.Task;
 		}
