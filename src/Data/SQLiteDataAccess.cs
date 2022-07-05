@@ -38,5 +38,16 @@ namespace RetailManager.Data
 				return false;
 			}
 		}
+
+		public IEnumerable<Customer> FindCustomers(string name)
+		{
+			using var connection = Connect();
+			var data =
+				new
+				{
+					name = $"%{name}%"
+				};
+			return connection.Query<Customer>("SELECT * FROM Customers WHERE Name LIKE @name OR CompanyCode LIKE @name;", data);
+		}
 	}
 }

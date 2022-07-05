@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using GLib;
 using Gtk;
 using RetailManager.Data;
@@ -28,26 +29,19 @@ namespace RetailManager.GUI
 			
 			_clientsList = new ListStore(typeof(Customer));
 			_clientsTreeView.Model = _clientsList;
-			
-			//Fill with dummy data
-			_clientsList.AppendValues(
-				new Customer()
+			_clientSearchEntry.Changed += (sender, args) =>
+			{
+				_clientsList.Clear();
+				if (_clientSearchEntry.Text.Length > 2)
 				{
-					Name = "Elmet",
-					CompanyNumber = "22"
-				});
-			_clientsList.AppendValues(
-				new Customer()
-				{
-					Name = "Elmat",
-					CompanyNumber = "22"
-				});
-			_clientsList.AppendValues(
-				new Customer()
-				{
-					Name = "Demo tester",
-					CompanyNumber = "1587"
-				});
+					var data = new SqLiteDataAccess();
+					var customers = data.FindCustomers(_clientSearchEntry.Text);
+					foreach (var customer in customers)
+					{
+						_clientsList.AppendValues(customer);
+					}
+				}
+			};
 			
 			var nameCell = new CellRendererText();
 			var nameColumn = _clientsTreeView.AppendColumn("Name", nameCell, NameCellFunc);
@@ -72,15 +66,15 @@ namespace RetailManager.GUI
 				Respond(ResponseType.Accept);
 				Dispose();
 			}
-			catch (Exception exception)
+			catch (TaskCanceledException canceledException)
 			{
 				Show();
 			}
 		}
 
-		private void NameCellFunc(TreeViewColumn tree_column, CellRenderer cell, ITreeModel tree_model, TreeIter iter)
+		private void NameCellFunc(TreeViewColumn column, CellRenderer cell, ITreeModel model, TreeIter iter)
 		{
-			var item = (Customer)tree_model.GetValue(iter, 0);
+			var item = (Customer)model.GetValue(iter, 0);
 			cell.SetProperty("text", new Value(item.Name));
 		}
 

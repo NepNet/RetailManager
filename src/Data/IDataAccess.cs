@@ -6,5 +6,7 @@ namespace RetailManager.Data
 	{
 		public IEnumerable<Item> GetAllItems();
 		public bool LoginUser(string username, string password, out User user);
+
+		public IEnumerable<Customer> FindCustomers(string name);
 	}
 }
