@@ -50,6 +50,12 @@
       <DependentUpon>ClientSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     
+    <None Remove="GUI\MainWindow.glade" />
+    
+    <EmbeddedResource Include="GUI\MainWindow.glade">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    
   </ItemGroup>
   
   <ItemGroup>

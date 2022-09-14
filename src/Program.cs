@@ -44,6 +44,13 @@ namespace RetailManager
 		{
 			if (!_initialized)
 			{
+				var window = new MainWindow("a");
+					
+				_app.AddWindow(window);
+			
+				window.Show();
+				
+				/*
 				var data = new SqLiteDataAccess();
 				if (data.LoginUser("test", "what", out User user))
 				{
@@ -54,7 +61,7 @@ namespace RetailManager
 					window.Show();
 					
 					new ClientInfoWindow(new Customer(){Name = "tester"}).Show();
-				}
+				}*/
 				
 				_initialized = true;
 			}
