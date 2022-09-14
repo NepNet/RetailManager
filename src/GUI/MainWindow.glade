@@ -1042,7 +1042,6 @@
                         <property name="label" translatable="yes">New sale</property>
                         <property name="use-underline">True</property>
                         <property name="icon-name">document-new</property>
-                        <signal name="clicked" handler="f" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>

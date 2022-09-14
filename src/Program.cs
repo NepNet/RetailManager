@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
+using Gdk;
 using GLib;
+using Gtk;
 using RetailManager.Data;
 using RetailManager.GUI;
 using RetailManager.PaymentProcessors;
@@ -38,14 +40,23 @@ namespace RetailManager
 			ReceiptHandler.Register<BasicReceiptProcessor>(ReceiptType.Basic_receipt);
 			ReceiptHandler.Register<ReceiptWithCompanyInfoProcessor>(ReceiptType.Receipt_with_company_code);
 			ReceiptHandler.Register<InvoiceProcessor>(ReceiptType.Invoice);
+			
+			
+			
+			
 		}
 
 		private static void OnAppStarted(object? sender, EventArgs e)
 		{
 			if (!_initialized)
 			{
+				CssProvider provider = new CssProvider();
+				provider.LoadFromPath("theme/index.css");
+				
+				StyleContext.AddProviderForScreen(Screen.Default, provider,  StyleProviderPriority.Application);
+
 				var window = new MainWindow("a");
-					
+				
 				_app.AddWindow(window);
 			
 				window.Show();
