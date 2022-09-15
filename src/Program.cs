@@ -51,7 +51,7 @@ namespace RetailManager
 			if (!_initialized)
 			{
 				CssProvider provider = new CssProvider();
-				provider.LoadFromPath("theme/index.css");
+				provider.LoadFromPath("theme/gtk.css");
 				
 				StyleContext.AddProviderForScreen(Screen.Default, provider,  StyleProviderPriority.Application);
 
