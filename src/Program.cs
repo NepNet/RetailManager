@@ -46,11 +46,12 @@ namespace RetailManager
 		{
 			if (!_initialized)
 			{
+				/*
 				CssProvider provider = new CssProvider();
 				provider.LoadFromPath("theme/gtk.css");
 				
 				StyleContext.AddProviderForScreen(Screen.Default, provider,  StyleProviderPriority.Application);
-
+*/
 				var window = new MainWindow("a");
 				
 				_app.AddWindow(window);
